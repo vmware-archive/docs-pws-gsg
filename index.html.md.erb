@@ -17,13 +17,16 @@ In order to run your application on run.pivotal.io, you need to:
 
 ## <a id='signup'></a>Sign Up for An Account ##
 
-Before you can deploy your application, you will need an account on run.pivotal.io. If you already had an account on cloudfoundry.com, your account credentials have already been transferred over to run.pivotal.io for you. You can simply [log in to your account](https://login.run.pivotal.io/login).
+Before you can deploy your application, you will need an account on run.pivotal.io.
+If you already had an account on cloudfoundry.com, your account credentials have already been transferred over to run.pivotal.io for you.
+You can simply [log in to your account](https://login.run.pivotal.io/login).
 
 If you do not have an account yet, you can [sign up here](https://console.run.pivotal.io).
 
 ## <a id='install-cf'></a>Install cf Command Line Tool ##
 
-You'll use the `cf` command line tool to deploy your application. You can also use it to check on the health of your application, change settings, and stop and restart your app.
+You'll use the `cf` command line tool to deploy your application.
+You can also use it to check on the health of your application, change settings, and stop and restart your app.
 
 For information on installing `cf` see the [installation instructions](/devguide/installcf/).
 
@@ -46,7 +49,9 @@ email>
 password>
 </pre>
 
-When you log in, `cf` will prompt you to choose a space. In v2 Cloud Foundry, a space is a container for an application and all its associated processes. By default, your account has three spaces:
+When you log in, `cf` will prompt you to choose a space.
+In v2 Cloud Foundry, a space is a container for an application and all its associated processes.
+By default, your account has three spaces:
 
 <pre class="terminal">
 1: development
@@ -57,17 +62,18 @@ Space>
 
 You can choose any of these spaces to deploy your application.
 
-## <a id='prepare-app'></a>Prepare Your Application for Deployment ##
+## <a id='prepare-app'></a>Sample Applications ##
 
-Cloud Foundry supports a variety of application development frameworks:
+These sample apps will help you get a sense of what it is like to use Cloud Foundry.
 
-* [Ruby](/devguide/deploy-apps/ruby-tips.html)
-* [Node.js](/devguide/deploy-apps/node-tips.html)
-* [Java](/devguide/deploy-apps/java-tips.html)
+| Runtime        | Sample App                                                           |
+| -------------- | -------------------------------------------------------------------- |
+| Java / JVM     | [Spring Music](https://github.com/cloudfoundry-samples/spring-music) |
 
-Cloud Foundry supports these frameworks using buildpacks. Some of the <a href="https://devcenter.heroku.com/articles/third-party-buildpacks">Heroku third party buildpacks</a> will work as well, but your experience may vary. To push an application using one of these buildpacks use `cf push [appname] --buildpack=[git url]`
+## <a id='prepare-app'></a>Prepare Your Own Application for Deployment ##
 
-Before you push your application, you may also find it helpful to review the [application design guidelines for the cloud](/devguide/deploy-apps/prepare-to-deploy.html).
+Cloud Foundry supports many frameworks and runtimes using a buildpack model.
+See [the Buildpack section of Deploying Applications](/devguide/deploy-apps/prepare-to-deploy.html#Buildpack) for more information.
 
 ## <a id='push-app'></a>Push Your Application to the Cloud ##
 
@@ -77,11 +83,16 @@ Before you deploy, you need to decide on the answers to some questions:
 * **Instances**: The number of instances you want running.
 * **Memory Limit**: The maximum amount of memory that each instance of your application is allowed to consume. If an instance goes over the maximum limit, it will be restarted. If it has to be restarted too often, it will be terminated. So make sure you are generous in your memory limit.
 * **Start Command**: This is the command that Cloud Foundry will use to start each instance of your application. The start command is specific to your framework.
-      * If you do not specify a start command when you push the application, Cloud Foundry will use the value of the `web` key in the `procfile` for the application, if it exists; failing that, Cloud Foundry will start the application using the  value of the buildpack's web attribute of `default_process_types`.
+      * If you do not specify a start command when you push the application, Cloud Foundry will use the value of the `web` key in the `profile` for the application, if it exists; failing that, Cloud Foundry will start the application using the value of the buildpack web attribute of `default_process_types`.
 * **URL and Domain**: `cf` will prompt you for both a URL and a domain. The URL is the subdomain for your application and it will be hosted at the primary domain you choose. The combination of the URL and domain must be globally unique.
 * **Services**: `cf` will ask you if you want to create and bind one or more services such as MySQL or Redis to your application. For the purposes of this guide, you can answer no when prompted to add a service. Services are addressed in the next guide, [Adding a Service](adding-a-service.html).
 
-## <a id='example-push-app'></a>An Example Transcript ##
+You can define a variety of deployment options on the command line when you run `cf push`, or in a manifest file. For more information:
+
+* See [Prepare to Deploy an Application](/devguide/deploy-apps/prepare-to-deploy.html) for details about the Push operation.
+* See [Deploying with Application Manifests](/devguide/deploy-apps/manifest.html) for information about using an application manifest to supply deployment options.
+
+## <a id='example-push-app'></a>Transcript of a Push ##
 
 Here is an example transcript from deploying a Ruby on Rails application.
 Note that in this example, we already provisioned an ElephantSQL instance and named it "elephantpg":
