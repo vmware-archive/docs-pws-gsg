@@ -26,7 +26,7 @@ $ cf bind-service
 
 ## <a id='using'></a>Using Service Instances with your Application ##
 
-See [Using Service Instances with your Application](../../adding-a-service.html#using) and [VCAP_SERVICES Environment Variable](../../../using/deploying-apps/environment-variable.html).
+See [Using Service Instances with your Application](../../../../devguide/services/adding-a-service.html#using) and [VCAP_SERVICES Environment Variable](../../../using/deploying-apps/environment-variable.html).
 
 Format of credentials in `VCAP_SERVICES` environment variable.
 
