@@ -6,7 +6,7 @@ IronMQ is a reliable message queue service that lets you connect systems and bui
 
 ## <a id='managing'></a>Managing Services ##
 
-[Managing services from the command line](../../../using/services/managing-services.html)
+[Managing services from the command line](../../../devguide/services/managing-services.html)
 
 ### Creating a Service Instance ##
 
@@ -21,14 +21,14 @@ An instance of this service can be provisioned via the CLI with the following co
 Bind the service instance to your app with the following command:
 
 <pre class="terminal">
-  $ cf bind-service 
+  $ cf bind-service
 </pre>
 
 ## <a id='using'></a>Using Service Instances with your Application ##
 
 * Include this section only if your service is bindable. What is the format of the credentials stored in the VCAP_SERVICES environment variable? *
 
-See [Using Service Instances with your Application](../../../../devguide/services/adding-a-service.html#using) and [VCAP_SERVICES Environment Variable](../../../using/deploying-apps/environment-variable.html).
+See [Using Service Instances with your Application](../../../devguide/services/adding-a-service.html#using) and [VCAP_SERVICES Environment Variable](../../../devguide/deploy-apps/environment-variable.html).
 
 Format of credentials in `VCAP_SERVICES` environment variable.
 
@@ -227,7 +227,7 @@ You’re also welcome to stop by the [Iron.io support chat room][12] and chat wi
   ## View analytics and gain insight about your queues
 
   ![ironmq analytics][2]
-  
+
   ## Share your projects with other people
 
   Each of your projects can be shared with coworkers and friends. It's easy and just takes a few seconds. They'll get an invite to signup for Iron.io for free and have automatic access to the project once completed.
