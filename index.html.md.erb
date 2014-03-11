@@ -2,7 +2,11 @@
 title: Getting Started with Pivotal Web Services
 ---
 
-Cloud Foundry allows you to deploy applications without worrying about configuration headaches, making it faster and easier to build, test, deploy and scale your app.
+_This page assumes that you are using cf v6._
+
+Cloud Foundry allows you to deploy applications without worrying about
+configuration headaches, making it faster and easier to build, test, deploy, and
+scale your app.
 
 This guide walks you through getting started at run.pivotal.io, powered by Cloud Foundry.
 
@@ -11,212 +15,321 @@ This guide walks you through getting started at run.pivotal.io, powered by Cloud
 In order to run your application on run.pivotal.io, you need to:
 
 1. [Sign up for an account](#signup)
-1. [Install and configure the `cf` command line tool](#install-cf)
+1. [Install the `cf` command line tool and log in](#install-cf)
 1. [Prepare your application on your local machine](#prepare-app)
+1. [Determine deployment options](#determine)
 1. [Push your application code to the cloud](#push-app)
 
 ## <a id='signup'></a>Sign Up for An Account ##
 
-Before you can deploy your application, you will need an account on run.pivotal.io.
-If you already had an account on cloudfoundry.com, your account credentials have already been transferred over to run.pivotal.io for you.
-You can simply [log in to your account](https://login.run.pivotal.io/login).
+Before you can deploy your application, you will need an account on
+run.pivotal.io.
+If you had an account on cloudfoundry.com, your account credentials have already
+been transferred to run.pivotal.io, and you can [log in to your account](https://login.run.pivotal.io/login).
 
-If you do not have an account yet, you can [sign up here](https://console.run.pivotal.io).
+If you do not have an account, you can [sign up here](https://console.run.pivotal.io).
 
-## <a id='install-cf'></a>Install cf Command Line Tool ##
+## <a id='install-login'></a>Install cf Command Line Tool and Log In ##
 
-You'll use the `cf` command line tool to deploy your application.
-You can also use it to check on the health of your application, change settings, and stop and restart your app.
+You will use the `cf` command line tool to deploy your application.
+You can also use it to check on the health of your application, change settings,
+and stop and restart your app.
 
-For information on installing `cf`, see the [installation instructions](https://console.run.pivotal.io/tools).
+### <a id='install-cf'></a>Download and Install cf ###
 
-The remainder of these instructions assume that you are using `cf` v5.
+You can download `cf` from the [tools page](https://console.run.pivotal.io/tools).
 
-## <a id='target'></a>Target run.pivotal.io ##
+For information on installing `cf`, see the [installation instructions](../devguide/installcf/index.html).
 
-Once you have `cf` installed, you can target run.pivotal.io:
+### <a id='target'></a>Log In ###
+
+Once you have `cf` installed, run `cf api api.run.pivotal.io` to target the run.pivotal.io API endpoint.
 
 <pre class="terminal">
-$ cf target api.run.pivotal.io
-Setting target to https://api.run.pivotal.io... OK
+$ cf api api.run.pivotal.io
+Setting api endpoint to api.run.pivotal.io...
+OK
+
+API endpoint: https://api.run.pivotal.io (API version: 2.0.0)
+Not logged in. Use 'cf login' to log in.
 </pre>
 
-Then log in:
+After targeting the API endpoint, you can log in using `cf login`.
+
+When you log in, `cf` will prompt you for your username, password, organization,
+and space.
+In v2 Cloud Foundry, a space is a container for an application and all its
+associated processes.
+By default, your account has three spaces: development, production, and staging.
+You can choose any of these spaces to deploy your application.
+
+Example:
 
 <pre class="terminal">
 $ cf login
-email>
-password>
-</pre>
+API endpoint: https://api.run.pivotal.io
 
-When you log in, `cf` will prompt you to choose a space.
-In v2 Cloud Foundry, a space is a container for an application and all its associated processes.
-By default, your account has three spaces:
+Username> user@example.com
 
-<pre class="terminal">
+Password>********
+Authenticating...
+OK
+
+Select an org (or press enter to skip):
+1. my-org
+
+Org> 1
+Targeted org my-org
+
+Select a space (or press enter to skip):
 1: development
 2: production
 3: staging
-Space>
+
+Space> 1
+Targeted space development
+
+API endpoint: https://api.run.pivotal.io (API version: 2.0.0)
+User:         user@example.com
+Org:          my-org
+Space:        development
 </pre>
 
-You can choose any of these spaces to deploy your application.
-
-## <a id='prepare-app'></a>Sample Applications ##
-
-These sample apps will help you get a sense of what it is like to use Cloud Foundry.
-
-| Runtime        | Sample App                                                           |
-| -------------- | -------------------------------------------------------------------- |
-| JVM / JAVA   | [Spring Music](https://github.com/cloudfoundry-samples/spring-music) |
-
-## <a id='prepare-app'></a>Prepare Your Own Application for Deployment ##
+## <a id='prepare-app'></a>Prepare Your Application ##
 
 Cloud Foundry supports many frameworks and runtimes using a buildpack model.
-See [the Buildpack section of Deploying Applications](/devguide/deploy-apps/prepare-to-deploy.html#Buildpack) for more information.
+See the [Buildpack](../devguide/deploy-apps/prepare-to-deploy.html#Buildpack) section of the [Prepare to Deploy an Application](../devguide/deploy-apps/prepare-to-deploy.html) topic for more
+information.
 
-## <a id='push-app'></a>Push Your Application to the Cloud ##
+## <a id='determine'></a>Determine Deployment Options ##
 
 Before you deploy, you need to decide on the answers to some questions:
 
-* **Name**: You can use any series of alpha-numeric characters without spaces as the name of your application.
+* **Name**: You can use any series of alpha-numeric characters, without spaces,
+as the name of your application.
 * **Instances**: The number of instances you want running.
-* **Memory Limit**: The maximum amount of memory that each instance of your application is allowed to consume. If an instance goes over the maximum limit, it will be restarted. If it has to be restarted too often, it will be terminated. So make sure you are generous in your memory limit.
-* **Start Command**: This is the command that Cloud Foundry will use to start each instance of your application. The start command is specific to your framework.
-      * If you do not specify a start command when you push the application, Cloud Foundry will use the value of the `web` key in the `procfile` for the application, if it exists; failing that, Cloud Foundry will start the application using the value of the buildpack web attribute of `default_process_types`.
-* **URL and Domain**: `cf` will prompt you for both a URL and a domain. The URL is the subdomain for your application and it will be hosted at the primary domain you choose. The combination of the URL and domain must be globally unique.
-* **Services**: `cf` will ask you if you want to create and bind one or more services such as MySQL or Redis to your application. For the purposes of this guide, you can answer no when prompted to add a service. Services are addressed in the next guide, [Adding a Service](../devguide/services/adding-a-service.html).
+Generally speaking, the more instances you run, the less downtime your
+application is likely to have.
+If your application is still in development, running a single instance makes it
+easier to troubleshoot.
+For any production application, you should run a minimum of two instances.
+* **Memory Limit**: The maximum amount of memory that each instance of your
+application is allowed to consume.
+If an instance exceeds this limit, the instance is restarted.
+If the instance has to be restarted too often, it is terminated.
+To prevent this we recommend being generous with your memory limit.
+* **Start Command**: The command that Cloud Foundry uses to start each instance
+of your application.
+This start command varies by application framework.
+    * If you do not specify a start command when you push the application,
+Cloud Foundry will use the value of the `web` key in the `procfile` for the
+application, if it exists.
+If this key does not exist, Cloud Foundry will start the application using the
+value of the buildpack web attribute of `default_process_types`.
+* **Subdomain (host) and Domain**: The route, which is the combination of subdomain and domain, must be globally unique. This is true whether you specify a portion of the route or allow Cloud Foundry to use defaults
+* **Services**: Applications can bind to services such as databases, messaging,
+and key-value stores.
+Applications are deployed into application spaces.
+An application can only bind to a service that has an existing instance in the
+target application space.
+Services are addressed in the next guide, [Adding a Service](../devguide/services/adding-a-service.html).
 
-You can define a variety of deployment options on the command line when you run `cf push`, or in a manifest file. For more information:
+You can define deployment options on the command line, in a manifest file, or
+both together.
+See [Prepare to Deploy an Application](../devguide/deploy-apps/prepare-to-deploy.html) for details about the push operation, and [Deploying with Application Manifests](../devguide/deploy-apps/manifest.html) to learn how application settings change from push to push, and how
+command-line options, manifests, and commands like `cf scale` interact.
 
-* See [Prepare to Deploy an Application](/devguide/deploy-apps/prepare-to-deploy.html) for details about the Push operation.
-* See [Deploying with Application Manifests](/devguide/deploy-apps/manifest.html) for information about using an application manifest to supply deployment options.
+## <a id='push-app'></a>Push Your Application to the Cloud ##
 
-## <a id='example-push-app'></a>Transcript of a Push ##
+The minimal command for deploying an application without a manifest is `cf push <appname>`.
 
-Here is an example transcript from deploying a Ruby on Rails application.
-Note that in this example, we already provisioned an ElephantSQL instance and named it "elephantpg":
+Since all you have provided is the name of your application, `cf push` sets
+the number of instances, amount of memory, and other attributes of your
+application to default values.
+You can override these defaults using command-line options. See the
+[push](../devguide/installcf/whats-new-v6.html#push) section of the [Getting Started with cf v6](../devguide/installcf/whats-new-v6.html) topic for more
+information.
+
+The following transcript, generated when user@example.com deployed the "my-app"
+Sinatra application, shows how `cf` assigns default values to application when
+given a minimal push command.
 
 <pre class="terminal">
-  $ cf push
-  Name> whiteboard
+$ cf push my-app
+Creating app my-app in org my-org / space development as user@example.com...
+OK
 
-  Instances> 1
+Creating route my-app.cfapps.io...
+OK
 
-  1: 64M
-  2: 128M
-  3: 256M
-  4: 512M
-  5: 1G
-  6: 2G
-  Memory Limit> 256M
+Binding my-app.cfapps.io to my-app...
+OK
 
-  Creating whiteboard... OK
+Uploading my-app...
+Uploading app: 560.1K, 9 files
+OK
 
-  1: whiteboard
-  2: none
-  Subdomain> whiteboard
+Starting app my-app in org my-org / space development as user@example.com...
+-----> Downloaded app package (552K)
+OK
+-----> Using Ruby version: ruby-1.9.3
+-----> Installing dependencies using Bundler version 1.3.2
+       Running: bundle install --without development:test --path vendor/bundle --binstubs vendor/bundle/bin --deployment
+       Installing rack (1.5.1)
+       Installing rack-protection (1.3.2)
+       Installing tilt (1.3.3)
+       Installing sinatra (1.3.4)
+       Using bundler (1.3.2)
+       Updating files in vendor/cache
+       Your bundle is complete! It was installed into ./vendor/bundle
+       Cleaning up the bundler cache.
+-----> Uploading droplet (23M)
+1 of 1 instances running
+App started
+Showing health and status for app my-app in org my-org / space development as user@example.com...
+OK
 
-  1: cfapps.io
-  2: none
-  Domain> cfapps.io
+requested state: started
+instances: 1/1
+usage: 1G x 1 instances
+urls: my-app.cfapps.io
 
-  Creating route whiteboard.cfapps.io... OK
-  Binding whiteboard.cfapps.io to whiteboard... OK
-
-  Create services for application?> n
-
-  Bind other services to application?> y
-
-  1: elephantpg
-  Which service?> 1
-
-  Binding elephantpg to whiteboard... OK
-  Save configuration?> n
-
-  Uploading whiteboard... OK
-  Starting whiteboard... OK
-  -----> Downloaded app package (224K)
-  Installing ruby.
-  -----> Using Ruby version: ruby-1.9.2
-  -----> Installing dependencies using Bundler version 1.3.2
-         Running: bundle install --without development:test --path vendor/bundle --binstubs vendor/bundle/bin --deployment
-         ...
-         Your bundle is complete! It was installed into ./vendor/bundle
-         Cleaning up the bundler cache.
-  -----> Writing config/database.yml to read from DATABASE_URL
-  -----> Preparing app for Rails asset pipeline
-         Running: rake assets:precompile
-         Asset precompilation completed (41.70s)
-  -----> Rails plugin injection
-         Injecting rails_log_stdout
-         Injecting rails3_serve_static_assets
-  -----> Uploading staged droplet (41M)
-  -----> Uploaded droplet
-  Checking whiteboard...
-  Staging in progress...
-  Staging in progress...
-  Staging in progress...
-  Staging in progress...
-  Staging in progress...
-  Staging in progress...
-  Staging in progress...
-  Staging in progress...
-  Staging in progress...
-    0/1 instances: 1 starting
-    0/1 instances: 1 starting
-    0/1 instances: 1 starting
-    0/1 instances: 1 starting
-    0/1 instances: 1 starting
-    0/1 instances: 1 starting
-    0/1 instances: 1 starting
-    0/1 instances: 1 starting
-    0/1 instances: 1 starting
-    0/1 instances: 1 starting
-    0/1 instances: 1 starting
-    0/1 instances: 1 starting
-    0/1 instances: 1 starting
-    0/1 instances: 1 starting
-    1/1 instances: 1 running
-  OK
+     state     since                    cpu    memory        disk
+#0   running   2014-01-24 05:07:18 PM   0.0%   18.5M of 1G   52.5M of 1G
 </pre>
 
 ## <a id='troubleshooting'></a>Troubleshooting ##
 
-If your application does not start on Cloud Foundry, it's a good idea to double-check that your application can run locally.
+If your application does not start on Cloud Foundry, first check that your
+application can run locally.
 
-You can troubleshoot your application in the cloud using `cf`.
+You can also use `cf` to troubleshoot your application in the cloud.
 
-To check the health of your application, use
+### <a id='health'></a>Checking Health and Status ###
 
-<pre class="terminal">
-  cf health appname
-</pre>
+To check the health and status of your application, use `cf app <appname>`.
 
-To check how much memory your application is using:
-
-<pre class="terminal">
-  cf stats appname
-</pre>
-
-To see the environment variables and recent log entries:
+Example:
 
 <pre class="terminal">
-  cf logs appname
+$ cf app my-app
+Showing health and status for app my-app in org my-org / space development as user@example.com...
+OK
+
+requested state: started
+instances: 1/1
+usage: 1G x 1 instances
+urls: my-app.cfapps.io
+
+     state     since                    cpu    memory        disk
+#0   running   2014-01-24 05:07:18 PM   0.0%   18.5M of 1G   52.5M of 1G
 </pre>
 
-To tail your logs:
+### <a id='env'></a>Checking Environment Variables ###
+
+`cf push` deploys the application to a container on the server.
+The environment variables that reside in the container are the environment
+variables of your application.
+
+You can set environment variables in a manifest created before you deploy.
+See [Deploying with Application Manifests](../devguide/deploy-apps/manifest.html).
+
+You can also set an environment variable with a `cf set-env` command followed by
+a `cf push` command. Once you run `cf env`, you can see the variable locally,
+but you must then run `cf push` for the variable to take effect in the container
+environment.
+
+To see the environment variables that you have set using the `cf set-env`
+command, use `cf env <appname>`.
+
+Example:
 
 <pre class="terminal">
-  cf tail appname
+$ cf env my-app
+Getting env variables for app my-app in org my-org / space development as user@example.com...
+OK
+
+SAMPLE-VARIABLE: 10000
 </pre>
 
-If your application has crashed and you cannot retrieve the logs with `cf logs`, you can retrieve its dying words with:
+To see the variables in the container environment, use `cf files <appname> logs/env.log`.
+
+Example:
 
 <pre class="terminal">
-  cf crashlogs appname
+$ cf files my-app logs/env.log
+Getting files for app my-app in org my-org / space development as user@example.com...
+OK
+
+TMPDIR=/home/vcap/tmp
+VCAP_APP_PORT=61065
+USER=vcap
+VCAP_APPLICATION={"instance_id":"acf562f42f014618bb456e230ca82770","instance_index":0,"host":"0.0.0.0","port":61065,"started_at":"2014-03-11 19:16:44 +0000","started_at_timestamp":1394565404,"start":"2014-03-11 19:16:44 +0000","state_timestamp":1394565404,"limits":{"mem":1024,"disk":1024,"fds":16384},"application_version":"1122dc5f-9983-4c23-1122-fc2567a7e8c1","application_name":"my-app","application_uris":["my-app.cfapps.io"],"version":"1122dc5f-9983-4c23-1122-fc2567a7e8c1","name":"my-app","uris":["my-app.cfapps.io"],"users":null}
+SAMPLE-VARIABLE: 10000
+PATH=/bin:/usr/bin
+PWD=/home/vcap
+VCAP_SERVICES={}
+SHLVL=1
+HOME=/home/vcap/app
+PORT=61065
+VCAP_APP_HOST=0.0.0.0
+MEMORY_LIMIT=1024m
+_=/usr/bin/env
 </pre>
 
-## <a id='binding-a-service'></a>Next Step - Binding a service ##
+### <a id='logs'></a>Viewing Logs ###
 
-Binding and using a service is covered in our guide, [Adding a Service](/devguide/services/adding-a-service.html).
+To see recent log entries, use `cf logs <appname> --recent`.
+
+Example:
+
+<pre class="terminal">
+$ cf logs my-app --recent
+Connected, dumping recent logs for app my-app in org my-org / space development as user@example.com...
+
+2014-03-11T12:17:03.00-0700 [App/0]   OUT 19:17:03,002  INFO AnnotationConfigWebApplicationContext:513 - Refreshing Root WebApplicationContext: startup date [Tue Mar 11 19:17:03 UTC 2014]; root of context hierarchy
+2014-03-11T12:17:03.25-0700 [App/0]   OUT 19:17:03,256  INFO AnnotationConfigWebApplicationContext:244 - Found 1 annotated classes in package [org.my-org.cofig.root]
+
+. . .
+</pre>
+
+To see log entries in real time, use `cf logs <appname>`.
+
+Example:
+
+<pre class="terminal">
+$ cf logs my-app
+Connected, tailing logs for app my-app in org my-org / space development as user@example.com...
+
+. . .
+</pre>
+
+To explore all logs available in the container, first view the log filenames, then view the log that interests you.
+
+Example:
+
+<pre class="terminal">
+$ cf files my-app logs
+Getting files for app my-app in org my-org / space development as user@example...
+OK
+
+env.log                                   758B
+staging_task.log                          848B
+stderr.log                                3.1K
+stdout.log                               10.5K
+
+$ cf files my-app logs/staging_task.log
+Getting files for app my-app in org my-org / space development as user@example.com...
+OK
+
+-----> Downloaded app package (19M)
+-----> Downloaded app buildpack cache (42M)
+-----> Java Buildpack source: system
+-----> Downloading Open JDK 1.7.0_51 from http://d2vm4m9hl67ira.cloudfront.net/openjdk/lucid/x86_64/openjdk-1.7.0_51.tar.gz (0.0s)
+       Expanding Open JDK to .java-buildpack/open_jdk (1.5s)
+-----> Downloading Spring Auto Reconfiguration 0.8.7 from http://d2vm4m9hl67ira.cloudfront.net/auto-reconfiguration/auto-reconfiguration-0.8.7.jar (0.0s)
+       Modifying /WEB-INF/web.xml for Auto Reconfiguration
+-----> Downloading Tomcat 7.0.52 from http://d2vm4m9hl67ira.cloudfront.net/tomcat/tomcat-7.0.52.tar.gz (0.0s)
+       Expanding Tomcat to .java-buildpack/tomcat (0.1s)
+-----> Downloading Buildpack Tomcat Support 1.1.1 from http://d2vm4m9hl67ira.cloudfront.net/tomcat-buildpack-support/tomcat-buildpack-support-1.1.1.jar (0.0s)
+</pre>
