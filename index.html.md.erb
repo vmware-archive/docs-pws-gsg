@@ -17,7 +17,6 @@ In order to run your application on run.pivotal.io, you need to:
 1. [Sign up for an account](#signup)
 1. [Install the `cf` command line tool and log in](#install-cf)
 1. [Prepare your application on your local machine](#prepare-app)
-1. [Determine deployment options](#determine)
 1. [Push your application code to the cloud](#push-app)
 
 ## <a id='signup'></a>Sign Up for An Account ##
@@ -32,14 +31,14 @@ If you do not have an account, you can [sign up here](https://console.run.pivota
 ## <a id='install-login'></a>Install cf Command Line Tool and Log In ##
 
 You will use the `cf` command line tool to deploy your application.
-You can also use it to check on the health of your application, change settings,
+You can also use it to check the health of your application, change settings,
 and stop and restart your app.
 
 ### <a id='install-cf'></a>Download and Install cf ###
 
 You can download `cf` from the [tools page](https://console.run.pivotal.io/tools).
 
-For information on installing `cf`, see the [installation instructions](../devguide/installcf/index.html).
+For information on installing `cf`, see the [installation instructions](http://docs.run.pivotal.io/devguide/installcf/index.html).
 
 ### <a id='target'></a>Log In ###
 
@@ -54,7 +53,7 @@ API endpoint: https://api.run.pivotal.io (API version: 2.0.0)
 Not logged in. Use 'cf login' to log in.
 </pre>
 
-After targeting the API endpoint, you can log in using `cf login`.
+After targeting the API endpoint, log in using `cf login`.
 
 When you log in, `cf` will prompt you for your username, password, organization,
 and space.
@@ -98,61 +97,43 @@ Space:        development
 ## <a id='prepare-app'></a>Prepare Your Application ##
 
 Cloud Foundry supports many frameworks and runtimes using a buildpack model.
-See the [Buildpack](../devguide/deploy-apps/prepare-to-deploy.html#Buildpack) section of the [Prepare to Deploy an Application](../devguide/deploy-apps/prepare-to-deploy.html) topic for more
+See the [Buildpack](http://docs.run.pivotal.io/devguide/deploy-apps/prepare-to-deploy.html#Buildpack) section of the [Prepare to Deploy an Application](http://docs.run.pivotal.io/devguide/deploy-apps/prepare-to-deploy.html) topic for more
 information.
-
-## <a id='determine'></a>Determine Deployment Options ##
-
-Before you deploy, you need to decide on the answers to some questions:
-
-* **Name**: You can use any series of alpha-numeric characters, without spaces,
-as the name of your application.
-* **Instances**: The number of instances you want running.
-Generally speaking, the more instances you run, the less downtime your
-application is likely to have.
-If your application is still in development, running a single instance makes it
-easier to troubleshoot.
-For any production application, you should run a minimum of two instances.
-* **Memory Limit**: The maximum amount of memory that each instance of your
-application is allowed to consume.
-If an instance exceeds this limit, the instance is restarted.
-If the instance has to be restarted too often, it is terminated.
-To prevent this we recommend being generous with your memory limit.
-* **Start Command**: The command that Cloud Foundry uses to start each instance
-of your application.
-This start command varies by application framework.
-    * If you do not specify a start command when you push the application,
-Cloud Foundry will use the value of the `web` key in the `procfile` for the
-application, if it exists.
-If this key does not exist, Cloud Foundry will start the application using the
-value of the buildpack web attribute of `default_process_types`.
-* **Subdomain (host) and Domain**: The route, which is the combination of subdomain and domain, must be globally unique. This is true whether you specify a portion of the route or allow Cloud Foundry to use defaults
-* **Services**: Applications can bind to services such as databases, messaging,
-and key-value stores.
-Applications are deployed into application spaces.
-An application can only bind to a service that has an existing instance in the
-target application space.
-Services are addressed in the next guide, [Adding a Service](../devguide/services/adding-a-service.html).
-
-You can define deployment options on the command line, in a manifest file, or
-both together.
-See [Prepare to Deploy an Application](../devguide/deploy-apps/prepare-to-deploy.html) for details about the push operation, and [Deploying with Application Manifests](../devguide/deploy-apps/manifest.html) to learn how application settings change from push to push, and how
-command-line options, manifests, and commands like `cf scale` interact.
 
 ## <a id='push-app'></a>Push Your Application to the Cloud ##
 
-The minimal command for deploying an application without a manifest is `cf push <appname>`.
+To push an application to the cloud, use `cf push APPNAME`.
 
-Since all you have provided is the name of your application, `cf push` sets
-the number of instances, amount of memory, and other attributes of your
-application to default values.
-You can override these defaults using command-line options. See the
-[push](../devguide/installcf/whats-new-v6.html#push) section of the [Getting Started with cf v6](../devguide/installcf/whats-new-v6.html) topic for more
-information.
+By default, `cf push APPNAME` creates a URL to your application in the form
+HOST.DOMAIN, where:
 
-The following transcript, generated when user@example.com deployed the "my-app"
-Sinatra application, shows how `cf` assigns default values to application when
-given a minimal push command.
+* **HOST** is the APPNAME used with `cf push`
+* **DOMAIN** is the default shared domain of your Cloud Foundry instance.
+
+Example: `cf push my-app` creates the URL my-app.<%=vars.app_domain%>.
+
+The URL to your application must be unique.
+
+If you want to create a URL different from an existing URL, you can use the `-n`
+flag to specify a different HOST when pushing your application.
+
+Example: `cf push my-app -n something-else` creates the URL something-else.<%=vars.app_domain%>.
+
+`cf` deploys your application using default values for the number of instances,
+amount of memory each instance can use, and other deployment attributes.
+You can override these defaults using command-line options.
+See the
+[push](http://docs.run.pivotal.io/devguide/installcf/whats-new-v6.html#push)
+section of [Getting Started with cf v6](http://docs.run.pivotal.io/devguide/installcf/whats-new-v6.html) for
+more information.
+
+You can also specify deployment options in a manifest.
+See [Deploying with Application Manifests](http://docs.run.pivotal.io/devguide/deploy-apps/manifest.html) for more information.
+
+Example:
+
+The following transcript shows how `cf` assigns default values to an application
+when given a minimal push command.
 
 <pre class="terminal">
 $ cf push my-app
@@ -207,7 +188,7 @@ You can also use `cf` to troubleshoot your application in the cloud.
 
 ### <a id='health'></a>Checking Health and Status ###
 
-To check the health and status of your application, use `cf app <appname>`.
+To check the health and status of your application, use `cf app APPNAME`.
 
 Example:
 
@@ -232,7 +213,7 @@ The environment variables that reside in the container are the environment
 variables of your application.
 
 You can set environment variables in a manifest created before you deploy.
-See [Deploying with Application Manifests](../devguide/deploy-apps/manifest.html).
+See [Deploying with Application Manifests](http://docs.run.pivotal.io/devguide/deploy-apps/manifest.html).
 
 You can also set an environment variable with a `cf set-env` command followed by
 a `cf push` command. Once you run `cf env`, you can see the variable locally,
@@ -240,7 +221,7 @@ but you must then run `cf push` for the variable to take effect in the container
 environment.
 
 To see the environment variables that you have set using the `cf set-env`
-command, use `cf env <appname>`.
+command, use `cf env APPNAME`.
 
 Example:
 
@@ -252,7 +233,7 @@ OK
 SAMPLE-VARIABLE: 10000
 </pre>
 
-To see the variables in the container environment, use `cf files <appname> logs/env.log`.
+To see the variables in the container environment, use `cf files APPNAME logs/env.log`.
 
 Example:
 
@@ -279,7 +260,7 @@ _=/usr/bin/env
 
 ### <a id='logs'></a>Viewing Logs ###
 
-To see recent log entries, use `cf logs <appname> --recent`.
+To see recent log entries, use `cf logs APPNAME --recent`.
 
 Example:
 
@@ -293,7 +274,7 @@ Connected, dumping recent logs for app my-app in org my-org / space development 
 . . .
 </pre>
 
-To see log entries in real time, use `cf logs <appname>`.
+To see log entries in real time, use `cf logs APPNAME`.
 
 Example:
 
