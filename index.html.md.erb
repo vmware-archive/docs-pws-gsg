@@ -204,111 +204,16 @@ urls: my-app.cfapps.io
 #0   running   2014-01-24 05:07:18 PM   0.0%   18.5M of 1G   52.5M of 1G
 </pre>
 
-### <a id='env'></a>Checking Environment Variables ###
+## <a id='next-steps'></a>Additional Resources ##
 
-`cf push` deploys the application to a container on the server.
-The environment variables that reside in the container are the environment
-variables of your application.
+Now that you've pushed your first application, refer to these topics to learn more about what you can do with Cloud Foundry and Pivotal Web Services:
 
-You can set environment variables in a manifest created before you deploy.
-See [Deploying with Application Manifests](http://docs.run.pivotal.io/devguide/deploy-apps/manifest.html).
-
-You can also set an environment variable with a `cf set-env` command followed by
-a `cf push` command. Once you run `cf env`, you can see the variable locally,
-but you must then run `cf push` for the variable to take effect in the container
-environment.
-
-To see the environment variables that you have set using the `cf set-env`
-command, use `cf env APPNAME`.
-
-Example:
-
-<pre class="terminal">
-$ cf env my-app
-Getting env variables for app my-app in org my-org / space development as user@example.com...
-OK
-
-SAMPLE-VARIABLE: 10000
-</pre>
-
-To see the variables in the container environment, use `cf files APPNAME logs/env.log`.
-
-Example:
-
-<pre class="terminal">
-$ cf files my-app logs/env.log
-Getting files for app my-app in org my-org / space development as user@example.com...
-OK
-
-TMPDIR=/home/vcap/tmp
-VCAP_APP_PORT=61065
-USER=vcap
-VCAP_APPLICATION={"instance_id":"acf562f42f014618bb456e230ca82770","instance_index":0,"host":"0.0.0.0","port":61065,"started_at":"2014-03-11 19:16:44 +0000","started_at_timestamp":1394565404,"start":"2014-03-11 19:16:44 +0000","state_timestamp":1394565404,"limits":{"mem":1024,"disk":1024,"fds":16384},"application_version":"1122dc5f-9983-4c23-1122-fc2567a7e8c1","application_name":"my-app","application_uris":["my-app.cfapps.io"],"version":"1122dc5f-9983-4c23-1122-fc2567a7e8c1","name":"my-app","uris":["my-app.cfapps.io"],"users":null}
-SAMPLE-VARIABLE: 10000
-PATH=/bin:/usr/bin
-PWD=/home/vcap
-VCAP_SERVICES={}
-SHLVL=1
-HOME=/home/vcap/app
-PORT=61065
-VCAP_APP_HOST=0.0.0.0
-MEMORY_LIMIT=1024m
-_=/usr/bin/env
-</pre>
-
-### <a id='logs'></a>Viewing Logs ###
-
-To see recent log entries, use `cf logs APPNAME --recent`.
-
-Example:
-
-<pre class="terminal">
-$ cf logs my-app --recent
-Connected, dumping recent logs for app my-app in org my-org / space development as user@example.com...
-
-2014-03-11T12:17:03.00-0700 [App/0]   OUT 19:17:03,002  INFO AnnotationConfigWebApplicationContext:513 - Refreshing Root WebApplicationContext: startup date [Tue Mar 11 19:17:03 UTC 2014]; root of context hierarchy
-2014-03-11T12:17:03.25-0700 [App/0]   OUT 19:17:03,256  INFO AnnotationConfigWebApplicationContext:244 - Found 1 annotated classes in package [org.my-org.cofig.root]
-
-. . .
-</pre>
-
-To see log entries in real time, use `cf logs APPNAME`.
-
-Example:
-
-<pre class="terminal">
-$ cf logs my-app
-Connected, tailing logs for app my-app in org my-org / space development as user@example.com...
-
-. . .
-</pre>
-
-To explore all logs available in the container, first view the log filenames, then view the log that interests you.
-
-Example:
-
-<pre class="terminal">
-$ cf files my-app logs
-Getting files for app my-app in org my-org / space development as user@example...
-OK
-
-env.log                                   758B
-staging_task.log                          848B
-stderr.log                                3.1K
-stdout.log                               10.5K
-
-$ cf files my-app logs/staging_task.log
-Getting files for app my-app in org my-org / space development as user@example.com...
-OK
-
------> Downloaded app package (19M)
------> Downloaded app buildpack cache (42M)
------> Java Buildpack source: system
------> Downloading Open JDK 1.7.0_51 from http://d2vm4m9hl67ira.cloudfront.net/openjdk/lucid/x86_64/openjdk-1.7.0_51.tar.gz (0.0s)
-       Expanding Open JDK to .java-buildpack/open_jdk (1.5s)
------> Downloading Spring Auto Reconfiguration 0.8.7 from http://d2vm4m9hl67ira.cloudfront.net/auto-reconfiguration/auto-reconfiguration-0.8.7.jar (0.0s)
-       Modifying /WEB-INF/web.xml for Auto Reconfiguration
------> Downloading Tomcat 7.0.52 from http://d2vm4m9hl67ira.cloudfront.net/tomcat/tomcat-7.0.52.tar.gz (0.0s)
-       Expanding Tomcat to .java-buildpack/tomcat (0.1s)
------> Downloading Buildpack Tomcat Support 1.1.1 from http://d2vm4m9hl67ira.cloudfront.net/tomcat-buildpack-support/tomcat-buildpack-support-1.1.1.jar (0.0s)
-</pre>
+* [Preparing to Deploy an Application](http://docs.run.pivotal.io/devguide/deploy-apps/prepare-to-deploy.html)
+* [Using Services](http://docs.run.pivotal.io/devguide/services/)
+* [Deploying with Application Manifests](http://docs.run.pivotal.io/devguide/deploy-apps/manifest.html)
+* [Domains, Subdomains, and Routes](http://docs.run.pivotal.io/devguide/deploy-apps/domains-routes.html)
+* [Cloud Foundry Environment Variables](http://docs.run.pivotal.io/devguide/deploy-apps/environment-variable.html)
+* [Application Start Commands](http://docs.run.pivotal.io/devguide/deploy-apps/app-startup.html)
+* [Application Logging](http://docs.run.pivotal.io/devguide/deploy-apps/streaming-logs.html)
+* [Blue-Green Deployment](http://docs.run.pivotal.io/devguide/deploy-apps/blue-green.html)
+* [Troubleshooting Application Deployment and Health](http://docs.run.pivotal.io/devguide/deploy-apps/troubleshoot-app-health.html)
