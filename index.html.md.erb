@@ -4,19 +4,18 @@ title: Getting Started with Pivotal Web Services
 
 _This page assumes that you are using cf v6._
 
-Pivotal Web Services makes a Cloud Foundry Platform as a Service (PaaS)
-available as the environment to which you deploy your applications.
-The Pivotal Web Services PaaS is at `run.pivotal.io`.
+Pivotal Web Services makes it
 
-Cloud Foundry makes it faster and easier to build, test, deploy, and
-scale your apps.
+You can easily deploy, update, and scale your applications using the Cloud
+Foundry Platform as a Service (PaaS) that powers Pivotal Web Services,
+located at `run.pivotal.io`.
 
 Complete the following steps to get started:
 
-1. [Sign up for an account](#signup)
-1. [Install the `cf` command line tool and log in](#install-cf)
+1. [Sign up for Pivotal Web Services and log in](#signup)
+1. [Install the `cf` Command Line Interface and log in](#install-cf)
 1. [Prepare an application on your local machine](#prepare-app)
-1. [Push your application code to the cloud](#push-app)
+1. [Push your application to the cloud](#push-app)
 
 ## <a id='signup'></a>Sign Up for Pivotal Web Services and Log In ##
 
@@ -24,10 +23,13 @@ Complete the following steps to get started:
 
 [Log in](https://login.run.pivotal.io/login).
 
-**Note**: If you had an account on `cloudfoundry.com`, your account credentials
-have been transferred to Pivotal Web Services.
+**Note**: If you had an account on `cloudfoundry.com`, you can just log into
+Pivotal Web Services using your `cloudfoundry.com` account credentials.
 
 ## <a id='install-login'></a>Install the cf Command Line Interface and Log In ##
+
+`cf` is your primary tool for deploying, starting, stopping, configuring, and
+checking the health of your applications.
 
 ### <a id='install-cf'></a>Download and Install cf ###
 
@@ -35,7 +37,7 @@ Download `cf` from the [tools page](https://console.run.pivotal.io/tools).
 
 Complete the [installation instructions](http://docs.run.pivotal.io/devguide/installcf/index.html).
 
-### <a id='target'></a>Log In ###
+### <a id='target'></a>Target the API endpoint and log in ###
 
 Run `cf api api.run.pivotal.io` to target the `run.pivotal.io` API endpoint.
 
@@ -48,55 +50,22 @@ API endpoint: https://api.run.pivotal.io (API version: 2.0.0)
 Not logged in. Use 'cf login' to log in.
 </pre>
 
-Run `cf login` to login.
+Run `cf login` to log in.
 `cf` prompts you for your username, password, organization, and space.
 
-Cloud Foundry spaces are containers for applications and all their
-associated processes.
-By default, your account has three spaces: development, production, and staging.
-You can deploy your application to whichever space you choose.
-
-Example:
-
-<pre class="terminal">
-$ cf login
-API endpoint: https://api.run.pivotal.io
-
-Username> user@example.com
-
-Password>********
-Authenticating...
-OK
-
-Select an org (or press enter to skip):
-1. my-org
-
-Org> 1
-Targeted org my-org
-
-Select a space (or press enter to skip):
-1: development
-2: production
-3: staging
-
-Space> 1
-Targeted space development
-
-API endpoint: https://api.run.pivotal.io (API version: 2.0.0)
-User:         user@example.com
-Org:          my-org
-Space:        development
-</pre>
+Spaces are containers for applications and all their associated processes.
+You can deploy your application to any of the three default spaces:
+development, production, and staging.
 
 ## <a id='prepare-app'></a>Prepare Your Application ##
 
-The [Prepare to Deploy an Application]
-(http://docs.run.pivotal.io/devguide/deploy-apps/prepare-to-deploy.html) topic
-explains how to get your app ready for Cloud Foundry.
+To get your app ready for Cloud Foundry, follow the instructions in the
+[Prepare to Deploy an Application]
+(http://docs.run.pivotal.io/devguide/deploy-apps/prepare-to-deploy.html) topic.
 
 ## <a id='push-app'></a>Push Your Application to the Cloud ##
 
-To push an application to the cloud, use `cf push APPNAME`.
+Run `cf push APPNAME` to push your application to the cloud.
 
 By default, `cf push APPNAME` creates a URL to your application in the form
 HOST.DOMAIN, where:
@@ -123,7 +92,6 @@ more information.
 
 You can also specify deployment options in a manifest.
 See [Deploying with Application Manifests](http://docs.run.pivotal.io/devguide/deploy-apps/manifest.html) for more information.
-
 
 
 ## <a id='troubleshooting'></a>Troubleshooting ##
