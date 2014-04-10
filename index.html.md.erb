@@ -4,45 +4,40 @@ title: Getting Started with Pivotal Web Services
 
 _This page assumes that you are using cf v6._
 
-Cloud Foundry allows you to deploy applications without worrying about
-configuration headaches, making it faster and easier to build, test, deploy, and
-scale your app.
+Pivotal Web Services makes a Cloud Foundry Platform as a Service (PaaS)
+available as the environment to which you deploy your applications.
+The Pivotal Web Services PaaS is at `run.pivotal.io`.
 
-This guide walks you through getting started at run.pivotal.io, powered by Cloud Foundry.
+Cloud Foundry makes it faster and easier to build, test, deploy, and
+scale your apps.
 
-## <a id='intro'></a>Steps to Get Started ##
-
-In order to run your application on run.pivotal.io, you need to:
+Complete the following steps to get started:
 
 1. [Sign up for an account](#signup)
 1. [Install the `cf` command line tool and log in](#install-cf)
-1. [Prepare your application on your local machine](#prepare-app)
+1. [Prepare an application on your local machine](#prepare-app)
 1. [Push your application code to the cloud](#push-app)
 
-## <a id='signup'></a>Sign Up for An Account ##
+## <a id='signup'></a>Sign Up for Pivotal Web Services and Log In ##
 
-Before you can deploy your application, you will need an account on
-run.pivotal.io.
-If you had an account on cloudfoundry.com, your account credentials have already
-been transferred to run.pivotal.io, and you can [log in to your account](https://login.run.pivotal.io/login).
+[Sign up](https://console.run.pivotal.io) for a Pivotal Web Services account.
 
-If you do not have an account, you can [sign up here](https://console.run.pivotal.io).
+[Log in](https://login.run.pivotal.io/login).
 
-## <a id='install-login'></a>Install cf Command Line Tool and Log In ##
+**Note**: If you had an account on `cloudfoundry.com`, your account credentials
+have been transferred to Pivotal Web Services.
 
-You will use the `cf` command line tool to deploy your application.
-You can also use it to check the health of your application, change settings,
-and stop and restart your app.
+## <a id='install-login'></a>Install the cf Command Line Interface and Log In ##
 
 ### <a id='install-cf'></a>Download and Install cf ###
 
-You can download `cf` from the [tools page](https://console.run.pivotal.io/tools).
+Download `cf` from the [tools page](https://console.run.pivotal.io/tools).
 
-For information on installing `cf`, see the [installation instructions](http://docs.run.pivotal.io/devguide/installcf/index.html).
+Complete the [installation instructions](http://docs.run.pivotal.io/devguide/installcf/index.html).
 
 ### <a id='target'></a>Log In ###
 
-Once you have `cf` installed, run `cf api api.run.pivotal.io` to target the run.pivotal.io API endpoint.
+Run `cf api api.run.pivotal.io` to target the `run.pivotal.io` API endpoint.
 
 <pre class="terminal">
 $ cf api api.run.pivotal.io
@@ -53,14 +48,13 @@ API endpoint: https://api.run.pivotal.io (API version: 2.0.0)
 Not logged in. Use 'cf login' to log in.
 </pre>
 
-After targeting the API endpoint, log in using `cf login`.
+Run `cf login` to login.
+`cf` prompts you for your username, password, organization, and space.
 
-When you log in, `cf` will prompt you for your username, password, organization,
-and space.
-In v2 Cloud Foundry, a space is a container for an application and all its
+Cloud Foundry spaces are containers for applications and all their
 associated processes.
 By default, your account has three spaces: development, production, and staging.
-You can choose any of these spaces to deploy your application.
+You can deploy your application to whichever space you choose.
 
 Example:
 
@@ -96,9 +90,9 @@ Space:        development
 
 ## <a id='prepare-app'></a>Prepare Your Application ##
 
-Cloud Foundry supports many frameworks and runtimes using a buildpack model.
-See the [Buildpack](http://docs.run.pivotal.io/devguide/deploy-apps/prepare-to-deploy.html#Buildpack) section of the [Prepare to Deploy an Application](http://docs.run.pivotal.io/devguide/deploy-apps/prepare-to-deploy.html) topic for more
-information.
+The [Prepare to Deploy an Application]
+(http://docs.run.pivotal.io/devguide/deploy-apps/prepare-to-deploy.html) topic
+explains how to get your app ready for Cloud Foundry.
 
 ## <a id='push-app'></a>Push Your Application to the Cloud ##
 
