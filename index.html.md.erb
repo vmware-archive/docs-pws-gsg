@@ -4,10 +4,9 @@ title: Getting Started with Pivotal Web Services
 
 _This page assumes that you are using cf v6._
 
-You can easily deploy, update, and scale your applications using the Cloud
+You can deploy, update, and scale your applications using the Cloud
 Foundry Platform as a Service (PaaS).
-The Cloud Foundry that powers Pivotal Web Services is at [run.pivotal.io]
-(https://run.pivotal.io).
+
 
 To get started:
 
@@ -18,9 +17,7 @@ To get started:
 
 ## <a id='signup'></a>Sign Up for Pivotal Web Services and Log In ##
 
-[Sign up](https://console.run.pivotal.io) for a Pivotal Web Services account.
-
-[Log in](https://login.run.pivotal.io/login).
+[Sign up](https://console.run.pivotal.io) for a Pivotal Web Services account and [log in](https://login.run.pivotal.io/login).
 
 **Note**: If you had an account on `cloudfoundry.com`, you can just log into
 Pivotal Web Services using your `cloudfoundry.com` account credentials.
@@ -37,14 +34,14 @@ install in the normal way according to your operating system.
 
 ### <a id='target'></a>Target the API endpoint and log in ###
 
-Run `cf api api.run.pivotal.io` to target the `run.pivotal.io` API endpoint.
+1. Run `cf api api.run.pivotal.io` to target the `run.pivotal.io` API endpoint.
 
-Run `cf login` to log in.
+1. Run `cf login` to log in.
 
-`cf` prompts you for your username, password, organization, and space.
-Spaces are containers for applications and all their associated processes.
-You can deploy your application to any of the three default spaces:
-development, production, or staging.
+    `cf` prompts you for your username, password, organization, and space.
+    Spaces are containers for applications and all their associated processes.
+    You can deploy your application to any of the three default spaces:
+    development, production, or staging.
 
 ## <a id='prepare-app'></a>Prepare Your Application ##
 
