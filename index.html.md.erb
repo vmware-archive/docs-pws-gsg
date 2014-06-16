@@ -38,15 +38,14 @@ install in the normal way according to your operating system.
 
 1. Run `cf login` to log in.
 
-    `cf` prompts you for your username, password, organization, and space.
-    Spaces are containers for applications and all their associated processes.
-    Deploy your application to the space provided by default: **development**.
+    `cf` prompts you for your username, password, [organization](../concepts/roles.html#organizations), and [space](../concepts/roles.html#spaces).
+    By default, `cf` configures new orgs with a `development` space.
 
 ## <a id='prepare-app'></a>Prepare Your Application ##
 
 To get your app ready for Cloud Foundry, follow the instructions in the
 [Prepare to Deploy an Application]
-(http://docs.run.pivotal.io/devguide/deploy-apps/prepare-to-deploy.html) topic.
+(../devguide/deploy-apps/prepare-to-deploy.html) topic.
 
 ## <a id='push-app'></a>Push Your Application to the Cloud ##
 
@@ -75,14 +74,14 @@ Other default values you can override include the number of application
 instances and amount of memory each instance can use.
 
 See the
-[push](http://docs.run.pivotal.io/devguide/installcf/whats-new-v6.html#push)
+[push](../devguide/installcf/whats-new-v6.html#push)
 section of [Getting Started with cf v6]
-(http://docs.run.pivotal.io/devguide/installcf/whats-new-v6.html) for more
+(../devguide/installcf/whats-new-v6.html) for more
 information.
 
 You can also specify deployment options in a manifest.
 See [Deploying with Application Manifests]
-(http://docs.run.pivotal.io/devguide/deploy-apps/manifest.html).
+(../devguide/deploy-apps/manifest.html).
 
 ## <a id='health'></a>Check the Status of your Application ##
 
@@ -107,10 +106,10 @@ urls: my-app.cfapps.io
 If your application fails to start on Cloud Foundry, verify that the
 application starts in your local environment.
 See [Troubleshooting Application Deployment and Health]
-(http://docs.run.pivotal.io/devguide/deploy-apps/troubleshoot-app-health.html)
+(../devguide/deploy-apps/troubleshoot-app-health.html)
 to learn more about troubleshooting.
 
 ## <a id='dev-guide'></a> Learn More ##
 
 For a fuller picture of how to develop, deploy, and manage applications with
-Cloud Foundry, refer to the [Developer Guide](http://docs.run.pivotal.io/devguide/).
+Cloud Foundry, refer to the [Developer Guide](../devguide/).
