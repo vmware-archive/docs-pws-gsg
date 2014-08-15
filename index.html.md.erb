@@ -2,114 +2,88 @@
 title: Getting Started with Pivotal Web Services
 ---
 
-_This page assumes that you are using cf v6._
+You can deploy, update, and scale your applications on Pivotal Web Services (PWS), which is powered by the Cloud Foundry Platform as a Service (PaaS).
 
-You can deploy, update, and scale your applications using the Cloud
-Foundry Platform as a Service (PaaS).
+To deploy applications to PWS, you must first sign up for a PWS account, install the Cloud Foundry Command Line Interface (CLI) tool, and log in to PWS using the Cloud Foundry public API endpoint: `api.run.pivotal.io`.
 
+## <a id='signup'></a>Step 1: Set Up Your PWS Account ##
 
-To get started:
+This step establishes your PWS account and access to the PWS Developer Console for your account.
 
-1. [Sign up for Pivotal Web Services and log in](#signup)
-1. [Install the `cf` Command Line Interface and log in](#install-cf)
-1. [Prepare your application](#prepare-app)
-1. [Push your application to the cloud](#push-app)
+Sign up for a Pivotal Web Services account: https://console.run.pivotal.io
 
-## <a id='signup'></a>Sign Up for Pivotal Web Services and Log In ##
+The Developer Console displays after you create an [organization](http://docs.run.pivotal.io/concepts/roles.html#organizations) (org). By default, PWS configures each new org with a [space](http://docs.run.pivotal.io/concepts/roles.html#spaces) named `development`.
 
-[Sign up](https://console.run.pivotal.io) for a Pivotal Web Services account and [log in](https://console.run.pivotal.io).
+<img src="images/dev-space-tools.png" />
 
-**Note**: If you had an account on `cloudfoundry.com`, you can just log into
-Pivotal Web Services using your `cloudfoundry.com` account credentials.
+## <a id='install-login'></a>Step 2: Install the cf CLI ##
 
-## <a id='install-login'></a>Install the cf CLI and Log In ##
+The `cf` CLI is your primary tool for deploying and managing your applications.
 
-`cf` is your primary tool for deploying, starting, stopping, configuring, and
-checking the health of your applications.
+1. Click [Tools](https://console.run.pivotal.io/tools) on the left navigation menu of the Developer Console to access the Tools page.
 
-### <a id='install-cf'></a>Download and Install cf ###
+1. Install the appropriate `cf` CLI version for your OS.
+1. Run `cf help` to confirm that the tool is installed correctly.
+The example shows the beginning lines of output for this command.
 
-Download `cf` from the [tools page](https://console.run.pivotal.io/tools) and
-install in the normal way according to your operating system.
+<pre class=”terminal”>
+$ cf help
+NAME:
+   cf - A command line tool to interact with Cloud Foundry
 
-### <a id='target'></a>Target the API endpoint and log in ###
-
-1. Run `cf api api.run.pivotal.io` to target the `run.pivotal.io` API endpoint.
-
-1. Run `cf login` to log in.
-
-    `cf` prompts you for your username, password, [organization](../concepts/roles.html#organizations), and [space](../concepts/roles.html#spaces).
-    By default, `cf` configures new orgs with a `development` space.
-
-## <a id='prepare-app'></a>Prepare Your Application ##
-
-To get your app ready for Cloud Foundry, follow the instructions in the
-[Prepare to Deploy an Application]
-(../devguide/deploy-apps/prepare-to-deploy.html) topic.
-
-## <a id='push-app'></a>Push Your Application to the Cloud ##
-
-Run `cf push <app_name>` to push your application to the cloud.
-
-This creates a URL that is the route to your application.
-The URL is in the form **HOST.DOMAIN**.
-By default:
-
-* **HOST** is the `<app_name>` used with `cf push`
-* **DOMAIN** is the default shared domain of your Cloud Foundry instance
-
-Example: `cf push my-app` creates the URL `my-app.<%=vars.app_domain%>`.
-
-### <a id='override'></a>Overriding cf defaults ###
-
-By using command line options, you can push your app with values other than the
-ones `cf push` supplies by default.
-
-For example, `cf push my-app -n something-else` creates the URL
-`something-else.<%=vars.app_domain%>`.
-This enables you to create separate deployments of the same app while
-satisfying Cloud Foundry's requirement that each application have a unique URL.
-
-Other default values you can override include the number of application
-instances and amount of memory each instance can use.
-
-See the
-[push](../devguide/installcf/whats-new-v6.html#push)
-section of [Getting Started with cf v6]
-(../devguide/installcf/whats-new-v6.html) for more
-information.
-
-You can also specify deployment options in a manifest.
-See [Deploying with Application Manifests]
-(../devguide/deploy-apps/manifest.html).
-
-## <a id='health'></a>Check the Status of your Application ##
-
-Run `cf app <app_name>` to check the health and status of your application.
-
-Example:
-
-<pre class="terminal">
-$ cf app my-app
-Showing health and status for app my-app in org my-org / space development as user@example.com...
-OK
-
-requested state: started
-instances: 1/1
-usage: 1G x 1 instances
-urls: my-app.cfapps.io
-
-     state     since                    cpu    memory        disk
-#0   running   2014-01-24 05:07:18 PM   0.0%   18.5M of 1G   52.5M of 1G
+USAGE:
+   [environment variables] cf [global options] command [arguments...] [command options] 
+...
 </pre>
 
-If your application fails to start on Cloud Foundry, verify that the
-application starts in your local environment.
-See [Troubleshooting Application Deployment and Health]
-(../devguide/deploy-apps/troubleshoot-app-health.html)
-to learn more about troubleshooting.
 
-## <a id='dev-guide'></a> Learn More ##
+## <a id='connect-api'></a>Step 3: Connect to PWS Using the Cloud Foundry Public API ##
 
-For a fuller picture of how to develop, deploy, and manage applications with
-Cloud Foundry, refer to the [Developer Guide](../devguide/).
+This step targets the Cloud Foundry public API endpoint `api.run.pivotal.io` and establishes your connection to PWS.
+
+1. Run `cf login -a api.run.pivotal.io`
+
+1. Enter the email and password that you established in Step 1.
+
+The example shows the output of this command. When your account contains only a single org and space, PWS automatically targets them. Otherwise, PWS prompts you to select an org and space.
+
+<pre class=”terminal”>
+$ cf login -a api.run.pivotal.io
+
+API endpoint: https://api.run.pivotal.io
+
+Email> joeclouduser@acme.com
+
+Password> 
+Authenticating...
+OK
+
+Targeted org Cloud-Apps
+
+Targeted space development
+
+
+                   
+API endpoint:   https://api.run.pivotal.io (API version: 2.8.0)   
+User:           joeclouduser@acme.com   
+Org:            Cloud-Apps   
+Space:          development  
+</pre>
+
+You are now ready to deploy applications.
+
+## <a id='deploy-app'></a>Step 4: Deploy an Application to PWS ##
+
+For help pushing your app to PWS, choose the appropriate Quick Start deployment guide for the following supported languages:
+
+* [Java](quickstart-java.html.md): For Java, Grails, Play, Spring, and any other JVM-based apps
+* [Go](quickstart-go.html.md)
+* [Node.js](quickstart-nodejs.html.md): For JavaScript and Node apps
+* [Ruby](quickstart-ruby.html.md): For Ruby, Rack, and Sinatra apps
+* [Rails](quickstart-rails.html.md)
+
+ 
+ 
+ 
+ 
+ 
