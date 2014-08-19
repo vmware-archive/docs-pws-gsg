@@ -4,7 +4,6 @@ title: Getting Started with Pivotal Web Services
 
 You can deploy, update, and scale your applications on Pivotal Web Services (PWS), which is powered by the Cloud Foundry Platform as a Service (PaaS).
 
-To deploy applications to PWS, you must first sign up for a PWS account, install the Cloud Foundry Command Line Interface (CLI) tool, and log in to PWS using the Cloud Foundry public API endpoint: `api.run.pivotal.io`.
 
 ## <a id='signup'></a>Step 1: Set Up Your PWS Account ##
 
@@ -12,7 +11,7 @@ This step establishes your PWS account and access to the PWS Developer Console f
 
 Sign up for a Pivotal Web Services account: https://console.run.pivotal.io
 
-The Developer Console displays after you create an [organization](http://docs.run.pivotal.io/concepts/roles.html#organizations) (org). By default, PWS configures each new org with a [space](http://docs.run.pivotal.io/concepts/roles.html#spaces) named `development`.
+The Developer Console displays after you create an [organization](../concepts/roles.html#organizations) (org). By default, PWS configures each new org with a [space](../concepts/roles.html#spaces) named `development`.
 
 <img src="images/dev-space-tools.png" />
 
@@ -26,18 +25,18 @@ The `cf` CLI is your primary tool for deploying and managing your applications.
 1. Run `cf help` to confirm that the tool is installed correctly.
 The example shows the beginning lines of output for this command.
 
-<pre class=”terminal”>
-$ cf help
-NAME:
-   cf - A command line tool to interact with Cloud Foundry
+    <pre class=”terminal”>
+    $ cf help
+    NAME:
+       cf - A command line tool to interact with Cloud Foundry
 
-USAGE:
-   [environment variables] cf [global options] command [arguments...] [command options] 
-...
-</pre>
+    USAGE:
+       [environment variables] cf [global options] command [arguments...] [command options] 
+    ...
+    </pre>
 
 
-## <a id='connect-api'></a>Step 3: Connect to PWS Using the Cloud Foundry Public API ##
+## <a id='connect-api'></a>Step 3: Point Your CLI to PWS##
 
 This step targets the Cloud Foundry public API endpoint `api.run.pivotal.io` and establishes your connection to PWS.
 
@@ -74,16 +73,11 @@ You are now ready to deploy applications.
 
 ## <a id='deploy-app'></a>Step 4: Deploy an Application to PWS ##
 
-For help pushing your app to PWS, choose the appropriate Quick Start deployment guide for the following supported languages:
-
-* Java: For Java, Grails, Play, Spring, and any other JVM-based apps
-* Go
-* Node.js: For JavaScript and Node apps
-* Ruby: For Ruby, Rack, and Sinatra apps
-* Rails
+You can now deploy your app or a sample app to PWS. Refer to the appropriate Getting Started topic for your chosen programming language.
 
 <!---
 this code has links to the TBD quick start guides
+For help pushing your app to PWS, choose the appropriate Quick Start deployment guide for the following supported languages:
 * [Java](quickstart-java.html.md): For Java, Grails, Play, Spring, and any other JVM-based apps
 * [Go](quickstart-go.html.md)
 * [Node.js](quickstart-nodejs.html.md): For JavaScript and Node apps
