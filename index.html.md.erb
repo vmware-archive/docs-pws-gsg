@@ -1,20 +1,22 @@
 ---
-title: Getting Started with Pivotal Web Services
+title: Set Up Your PWS Account and Download the CF CLI
 ---
 
-You can deploy, update, and scale your applications on Pivotal Web Services (PWS), which is powered by the Cloud Foundry Platform as a Service (PaaS).
+You can deploy, update, and scale your applications on Pivotal Web Services (PWS), which is powered by the Cloud Foundry
+Platform as a Service (PaaS).
 
-## <a id='signup'></a>Step 1: Set Up Your PWS Account ##
+## <a id='signup'></a>Set Up Your PWS Account ##
 
 This step establishes your PWS account and access to the PWS Apps Manager for your account.
 
 Sign up for a Pivotal Web Services account: https://console.run.pivotal.io
 
-The Apps Manager displays after you create an [organization](../concepts/roles.html#organizations) (org). By default, PWS configures each new org with a [space](../concepts/roles.html#spaces) named `development`.
+The Apps Manager displays after you create an [organization](../concepts/roles.html#organizations) (org). By default, PWS
+configures each new org with a [space](../concepts/roles.html#spaces) named `development`.
 
 <%= image_tag("images/dev-space-tools.png") %>
 
-## <a id='install-login'></a>Step 2: Install the cf CLI ##
+## <a id='install-login'></a>Install the cf CLI ##
 
 The `cf` CLI is your primary tool for deploying and managing your applications.
 
@@ -34,55 +36,13 @@ The example shows the beginning lines of output for this command.
     ...
     </pre>
 
-## <a id='connect-api'></a>Step 3: Point Your CLI to PWS##
 
-This step targets the Cloud Foundry public API endpoint `api.run.pivotal.io` and establishes your connection to PWS.
+## <a id='deploy-app'></a>Deploy an Application to PWS ##
 
-1. Run `cf login -a api.run.pivotal.io`
+You're ready to deploy your app or a sample app to PWS!
 
-1. Enter the email and password that you established in Step 1.
+For framework-specific guidelines, see the **Deploy Your App: Guides by Framework** section of the help. For general guidelines, see [Deploy an Application](../devguide/deploy-apps/deploy-app.html).
 
-The example shows the output of this command. When your account contains only a single org and space, PWS automatically targets them. Otherwise, PWS prompts you to select an org and space.
-
-<pre class=”terminal”>
-$ cf login -a api.run.pivotal.io
-
-API endpoint: https://api.run.pivotal.io
-
-Email> clouduser@example.com
-
-Password>
-Authenticating...
-OK
-
-Targeted org Cloud-Apps
-
-Targeted space development
-
-
-API endpoint:   https://api.run.pivotal.io (API version: 2.8.0)
-User:           clouduser@example.com
-Org:            Cloud-Apps
-Space:          development
-</pre>
-
-You are now ready to deploy applications.
-
-## <a id='deploy-app'></a>Step 4: Deploy an Application to PWS ##
-
-You can now deploy your app or a sample app to PWS.
-
-For framework-specific guidelines, see:
-
-* [Getting Started Deploying Grails Apps](../buildpacks/java/gsg-grails.html)
-* [Getting Started Deploying Ratpack Apps](../buildpacks/java/gsg-ratpack.html)
-* [Getting Started Deploying Ruby Apps](../buildpacks/ruby/gsg-ruby.html)
-* [Getting Started Deploying Ruby on Rails Apps](../buildpacks/ruby/gsg-ror.html)
-* [Getting Started Deploying Spring Apps](../buildpacks/java/gsg-spring.html)
-
-For apps using other frameworks or for general guidelines, see:
-
-* [Deploy an Application](../devguide/deploy-apps/deploy-app.html)
 
 
 
