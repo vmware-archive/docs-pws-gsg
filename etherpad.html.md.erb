@@ -4,16 +4,15 @@ title: Using Etherpad Lite with PWS
 
 Etherpad Lite is a powerful online collaboration platform that multiple open source projects such as [Openstack Etherpad](https://etherpad.openstack.org/) utilize. This topic provides step-by-step instructions for setting up Etherpad Lite on Pivotal Web Services (PWS), powered by Cloud Foundry.
 
-<p class="note"><strong>Note</strong>: This deployment of Etherpad Lite allows only one instance, which is suitable for development and testing environments, but not for production. You can specify more instances when you push your application with the `-i` flag in the `cf push YOURAPPANME -i NUM_INSTANCES` command.</p>
+<p class="note"><strong>Note</strong>: This deployment of Etherpad Lite allows only one instance, which is suitable for development and testing environments, but not for production. You can specify more instances when you push your application with the <code>-i</code> flag in the <code>cf push YOURAPPNAME -i NUM_INSTANCES</code> command.</p>
 
 ## <a id="login-register"></a>Log in to PWS
 
 1. Go to [PWS](https://run.pivotal.io/) and log in.  If you do not have an account, sign up.
 
-		<%= image_tag("images/pws-landing-page.png")%>
+    <%= image_tag("images/pws-landing-page.png")%>
 
-1. If you already have the cf Command Line Interface (CLI) installed, skip this step. If you do not have it, see [Installing the cf Command Line Interface](http://docs.run.pivotal.io/devguide/installcf/). Run the `cf` command in your terminal to verify that you have installed the cf CLI.
-<!-- make CLI link relative -->
+1. If you already have the cf Command Line Interface (CLI) installed, skip this step. If you do not have it, see [Installing the cf Command Line Interface](../devguide/installcf/). Run the `cf` command in your terminal to verify that you have installed the cf CLI.
 
 1. Log in to PWS using the cf CLI as the command below shows. This will prompt you for a variety of information. Select "development" when you are prompted to choose a space.
 
@@ -49,7 +48,7 @@ $
 
 1. Download the latest [etherpad-lite-cf release](https://github.com/cloudfoundry-community/etherpad-lite-cf/releases) .zip file from Github.
 
-		<%= image_tag("images/download-etherpad-lite.png")%>
+    <%= image_tag("images/download-etherpad-lite.png")%>
 
 1. Extract the contents of the etherpad-lite-cf.zip file to the deployment directory for your application.
 
@@ -98,33 +97,32 @@ last uploaded: Fri Feb 20 18:36:32 UTC 2015
 
 1. Select your org and click your space.
 
-		<%= image_tag("images/org-space.png")%>
+    <%= image_tag("images/org-space.png")%>
 
 1. Click on your application.
 
-		<%= image_tag("images/your-application.png")%>
+    <%= image_tag("images/your-application.png")%>
 
 1. Click the **Services** tab and click **Bind a Service**.
 
-		<%= image_tag("images/bind-service.png")%>
+    <%= image_tag("images/bind-service.png")%>
 
 1. Click the "or add from Marketplace" link and click **ClearDB MySQL Database**. 
 
-		<%= image_tag("images/services-marketplace.png")%>
+    <%= image_tag("images/services-marketplace.png")%>
 
 1. Select **Spark DB** and click **Select this plan**.
 
-		<%= image_tag("images/cleardb.png")%>
+    <%= image_tag("images/cleardb.png")%>
 
 1. In the **Configure Instance** section, configuring the fields as follows:
-
 	* **Instance Name**: Name your instance "cleardb-etherpad".
 	* **Add to Space**: Keep the default value. The value in this field defines where the application lives.
 	* **Bind to App**: Use the dropdown menu to select your application.
 
 	Click **Add**.
 
-		<%= image_tag("images/cleardb-configure-instance.png")%>
+    <%= image_tag("images/cleardb-configure-instance.png")%>
 
 1. In the cf CLI, run the `cf restage YOURAPPNAME` command to ensure that your service binding is available to your application.
 
