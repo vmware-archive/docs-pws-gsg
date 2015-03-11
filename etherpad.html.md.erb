@@ -12,7 +12,7 @@ Etherpad Lite is a powerful online collaboration platform that multiple open sou
 
 1. If you already have the cf Command Line Interface (CLI) installed, skip this step. If you do not have it, follow the instructions in [Installing the cf Command Line Interface](../devguide/installcf/install-go-cli.html).
 
-1. Log in to PWS using the cf CLI as the example below shows. Select "development" when you are prompted to choose a space.
+1. Log in to PWS using the cf CLI, as the example below shows. Select "development" when you are prompted to choose a space.
 
     <pre class="terminal">
     $ cf login -a https://api.run.pivotal.io
@@ -52,7 +52,7 @@ Etherpad Lite is a powerful online collaboration platform that multiple open sou
 
 ## <a id="push-app"></a>Push Your Application to PWS
 
-1. Use `cf push YOURAPPNAME` to push Etherpad Lite to PWS as the example below shows. Ensure that you do the following when you run `cf push YOURAPPNAME` from your application directory:
+1. Use `cf push YOURAPPNAME` to push Etherpad Lite to PWS, as the example below shows. Ensure that you do the following when you run `cf push YOURAPPNAME` from your application directory:
 	* Enter a unique name for your application. This name will also be used as the host in the URL to your application.
 	* Choose a different application name if you get an error stating that the host is taken.
 
@@ -87,7 +87,7 @@ Etherpad Lite is a powerful online collaboration platform that multiple open sou
 
 1. To see your Etherpad Lite application, browse to `http://YOURAPPNAME.cfapps.io/`.
 
-By default, the [etherpad-lite-cf](https://github.com/cloudfoundry-community/etherpad-lite-cf/] application deploys with a built-in database, suitable for testing. To use a production database, see the next section.
+By default, the [etherpad-lite-cf](https://github.com/cloudfoundry-community/etherpad-lite-cf/) application deploys with a built-in database, suitable for testing. To use a production database, see the next section.
 
 ## <a id="database"></a>Create and Bind a Database to Your Application
 
