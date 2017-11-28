@@ -8,20 +8,19 @@ owner: Docs
 You can deploy, update, and scale your applications on Pivotal Web Services
 (PWS), which is powered by the Cloud Foundry Platform as a Service (PaaS).
 
-## <a id='signup'></a>Set Up Your PWS Account ##
+## <a id='signup'></a>Sign up for PWS ##
 
-This step establishes your PWS account and access to the PWS Apps Manager for your account.
+Sign up for Pivotal Web Services at http://run.pivotal.io/
 
-Sign up for a Pivotal Web Services account: https://console.run.pivotal.io
+Each customer is eligible for one trial organization. A trial org has 2GB of memory and you are given $87 of Trial credits good for one year.  Your trial will end when you either use up all your Trial credits or a year has passed, whichever comes first.  Trial credits can be used towards app and task usage.  Paid service plans are not available to trial orgs.  You can add your credit card to your trial org an anytime which will give you access to paid service plans and 25GB of memory. Your remaining trial credits will get rolled over.
 
-The Apps Manager displays after you create an [organization](../concepts/roles.html#organizations) (org). By default, PWS
-configures each new org with a [space](../concepts/roles.html#spaces) named `development`.
+Once you create your org, you will land on the Apps Manager page where you can manage your org.  By default, PWS configures each new org with a [space](../concepts/roles.html#spaces) named `development`.
 
 <%= image_tag("images/dev-space-tools.png") %>
 
 ## <a id='install-login'></a>Install the cf CLI ##
 
-The Cloud Foundry Command Line Interface (cf CLI) is your primary tool for deploying and managing your applications.
+The Cloud Foundry Command Line Interface (cf CLI) is your primary tool for deploying and managing your applications and tasks.
 
 1. Click [Tools](https://console.run.pivotal.io/tools) on the left navigation menu of the Apps Manager to access the Tools page.
 
@@ -42,6 +41,6 @@ The example shows the beginning lines of output for this command.
 
 ## <a id='deploy-app'></a>Deploy an Application to PWS ##
 
-You're ready to deploy your app or a sample app to PWS!
+You're ready to deploy your app to PWS!
 
 For framework-specific guidelines, see the **Deploy Your App: Guides by Framework** section of the help. For general guidelines, see [Deploy an Application](../devguide/deploy-apps/deploy-app.html).
